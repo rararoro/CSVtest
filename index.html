@@ -1,38 +1,49 @@
-<script type="text/javascript">
-  // File API実装チェック
-  if (window.File) {
-    window.alert("File APIが実装されてます。");
-    // File APIが実装されている場合には、dropイベントを登録
-    document.getElementById("drop").addEventListener("drop", onDrop, false);
-  } else {
-    window.alert("本ブラウザではFile APIが使えません");
-  }
-
-  // Drop領域にドロップした際のファイルのプロパティ情報読み取り処理
-  function onDrop(event) {
-    // （1）ドロップされたファイルのfilesプロパティを参照
-    var files = event.dataTransfer.files;
-    var disp = document.getElementById("disp");
-
-    disp.innerHTML = "";
-    for (var i = 0; i < files.length; i++) {
-      var f = files[i];
-      // （2）ファイル名とサイズを表示
-      disp.innerHTML += "ファイル名 :" + f.name + "ファイルの型:" + f.type + "ファイルサイズ:" + f.size / 1000 + " KB " + "<br />";
-    }
-    // （3）ブラウザ上でファイルを展開する挙動を抑止
-    event.preventDefault();
-  }
-
-  function onDragOver(event) {
-    // （4）ブラウザ上でファイルを展開する挙動を抑止
-    event.preventDefault();
-  } 
-</script>
-
-<section id="main">
-  <p>ドラッグアンドドロップで1つから複数のファイルのプロパティを取得します。</p>
-  <div id="drop" style="width:700px; height:150px; padding:10px; border:3px solid" ondragover="onDragOver(event)" ondrop="onDrop(event)"  >ここにドロップしたファイルのプロパティを読み込みます。</div>
-  <p>ファイルプロパティ表示</p>
-  <div id="disp" ></div>
-</section>
+<!DOCTYPE html>
+ 
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>File API</title>
+        <style type="text/css">
+            label {
+                width : 200px;
+            }
+        </style>
+       <script type="fileAPI.js"></script>
+    </head>
+    <body>
+        <h1>File API</h1>
+        
+        <p>Name : <span id="file-name">????</span></p>
+        <p>Size : <span id="file-size">????</span></p>
+        <p>Type : <span id="file-type">????</span></p>
+        <p>Value : </p>
+        <textarea id="ta" cols=64 rows=16></textarea>
+        <br />
+        
+        <hr />
+        
+        <label>
+            Func Name : 
+            <select id="func-name">
+                <option value="readAsText">readAsText</option>
+                <option value="readAsDataURL">readAsDataURL</option>
+                <option value="readAsArrayBuffer">readAsArrayBuffer</option>
+                <option value="readAsBinaryString">readAsBinaryString</option>
+            </select>
+        </label>
+        <br />
+        
+        <label>
+            Encode Type : 
+            <select id="encode-type">
+                <option value="default">default</option>
+                <option value="utf-8">utf-8</option>
+                <option value="shift-jis">shift-jis</option>
+            </select>
+        </label>
+        <br />
+        
+        <input id="read-button" type="file" />
+    </body>
+</html>
