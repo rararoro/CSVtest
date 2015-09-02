@@ -1,6 +1,10 @@
             var $id = function(id) { return document.getElementById(id); }
             var $class = function(c, n) { n=n||0; return document.getElementsByClassName(c)[n]; }
             var $classes = function(c)  { return document.getElementsByClassName(c); }
+            var d_denban;
+            var m_denban;
+            var d_imei;
+            var m_imei;
             
             window.onload = function()
             {
@@ -8,6 +12,7 @@
                 $id("ta").addEventListener("dragover", onCancel, false);
                 $id("ta").addEventListener("dragenter", onCancel, false);
                 $id("ta").addEventListener("drop", onDropFile, false);
+                $id("denban_btn").addEventListener("click",onDenbanClick,false);
             };
             
             // ファイル変更時イベント
@@ -28,7 +33,12 @@
                 // ファイル読み込み
                 readFile(file);
             };
-            
+
+            var onDenbanClick =function(e){
+                var d_denban = $id("99touroku").value;
+                $id("ta").value =$id("ta").value + d_denban;
+            }
+
             // デフォル処理をキャンセル
             var onCancel = function(e)
             {
@@ -52,6 +62,6 @@
                     $id("ta").value = e.target.result;
                 };
                 
-                reader.readAsText(file);
+                                   reader.readAsText(file);
    
             };
